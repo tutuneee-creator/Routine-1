@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>दरोगा तैयारी क्विज़ | Exam Prep Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Tiro+Devanagari+Hindi&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233F;
+    --paper:#F1EDE1;
+    --paper-dark:#E7E0CC;
+    --red:#A32020;
+    --green:#1F6E43;
+    --brass:#B8860B;
+    --rule:#C9C0A6;
+    --charcoal:#3A3A38;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 8%, rgba(184,134,11,0.06), transparent 40%),
+      linear-gradient(var(--paper), var(--paper));
+    color:var(--ink);
+    font-family:'Source Serif 4', serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:18px 12px 60px;
+  }
+  .hindi{font-family:'Tiro Devanagari Hindi', serif;}
+  .app{
+    width:100%;
+    max-width:560px;
+  }
+
+  /* ===== Admit-card header ===== */
+  .admit-card{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:10px 10px 0 0;
+    padding:16px 18px 14px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--ink);
+  }
+  .admit-card::after{
+    content:"";
+    position:absolute;
+    right:-40px; top:-40px;
+    width:140px; height:140px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(184,134,11,0.25), transparent 70%);
+  }
+  .brand-row{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+  }
+  .brand-title{
+    font-family:'Rajdhani', sans-serif;
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    color:var(--paper);
+    line-height:1.3;
+  }
+  .brand-title .hi{
+    display:block;
+    font-family:'Tiro Devanagari Hindi', serif;
+    font-weight:400;
+    font-size:1.25rem;
+    letter-spacing:0;
+    color:#E9C97A;
+  }
+  .seal{
+    width:52px; height:52px;
+    border-radius:50%;
+    border:2px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Rajdhani', sans-serif;
+    font-weight:700;
+    font-size:0.62rem;
+    text-align:center;
+    color:var(--brass);
+    flex-shrink:0;
+    line-height:1.1;
+    transform:rotate(-8deg);
+  }
+  .stat-strip{
+    display:flex;
+    margin-top:14px;
+    border-top:1px dashed rgba(241,237,225,0.35);
+    padding-top:10px;
+    gap:0;
+  }
+  .stat{
+    flex:1;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+  }
+  .stat + .stat{ border-left:1px dashed rgba(241,237,225,0.35); }
+  .stat .num{ font-size:1.15rem; font-weight:700; color:var(--paper); }
+  .stat .lbl{
+    font-family:'Rajdhani', sans-serif;
+    font-size:0.62rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#C9B98A;
+    margin-top:2px;
+  }
+
+  /* ===== Exam paper body ===== */
+  .paper{
+    background:
+      repeating-linear-gradient(
+        var(--paper) 0px, var(--paper) 33px,
+        var(--rule) 33px, var(--rule) 34px
+      );
+    border:1px solid var(--paper-dark);
+    border-top:none;
+    border-radius:0 0 10px 10px;
+    position:relative;
+    padding:20px 18px 22px 26px;
+    box-shadow:0 10px 26px rgba(22,35,63,0.12);
+  }
+  .paper::before{
+    content:"";
+    position:absolute;
+    left:16px; top:0; bottom:0;
+    width:1px;
+    background:rgba(163,32,32,0.35);
+  }
+
+  .watermark{
+    text-align:center;
+    font-family:'Rajdhani', sans-serif;
+    font-weight:700;
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--brass);
+    opacity:0.65;
+    border-bottom:1px dashed var(--rule);
+    padding-bottom:8px;
+    margin-bottom:10px;
+  }
+
+  .badge-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .tag{
+    display:inline-block;
+    font-family:'Rajdhani', sans-serif;
+    font-weight:700;
+    font-size:0.78rem;
+    letter-spacing:0.03em;
+    color:var(--red);
+    border:1.5px solid var(--red);
+    border-radius:3px;
+    padding:2px 9px;
+    transform:rotate(-2deg);
+  }
+  .qcount{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--charcoal);
+    opacity:0.75;
+  }
+  .prompt-line{
+    font-family:'Kalam', cursive;
+    font-size:0.9rem;
+    color:var(--red);
+    opacity:0.85;
+    margin-bottom:10px;
+  }
+
+  .qtext{
+    font-size:1.02rem;
+    line-height:1.65;
+    white-space:pre-line;
+    margin-bottom:16px;
+    color:var(--ink);
+  }
+  .qtext.mono-table{ font-family:'JetBrains Mono', monospace; font-size:0.92rem; }
+
+  .options{
+    display:flex; flex-direction:column; gap:10px;
+    margin-bottom:6px;
+  }
+  .opt{
+    display:flex; align-items:center; gap:12px;
+    background:rgba(255,255,255,0.5);
+    border:1.5px solid var(--charcoal);
+    border-radius:8px;
+    padding:11px 14px;
+    cursor:pointer;
+    font-size:0.96rem;
+    line-height:1.4;
+    transition:background 0.15s, border-color 0.15s, transform 0.1s;
+    text-align:left;
+  }
+  .opt:hover{ background:rgba(184,134,11,0.08); }
+  .opt:active{ transform:scale(0.99); }
+  .bubble{
+    flex-shrink:0;
+    width:26px; height:26px;
+    border-radius:50%;
+    border:2px solid var(--charcoal);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Rajdhani', sans-serif;
+    font-weight:700;
+    font-size:0.85rem;
+  }
+  .opt.correct{
+    border-color:var(--green);
+    background:rgba(31,110,67,0.1);
+  }
+  .opt.correct .bubble{ background:var(--green); border-color:var(--green); color:#fff; }
+  .opt.wrong{
+    border-color:var(--red);
+    background:rgba(163,32,32,0.08);
+  }
+  .opt.wrong .bubble{ background:var(--red); border-color:var(--red); color:#fff; }
+  .opt.disabled{ cursor:default; }
+  .opt.dim{ opacity:0.55; }
+
+  /* stamp */
+  .stamp-wrap{
+    position:relative;
+    height:0;
+  }
+  .stamp{
+    position:absolute;
+    right:6px; top:-96px;
+    font-family:'Rajdhani', sans-serif;
+    font-weight:700;
+    font-size:1.2rem;
+    letter-spacing:0.05em;
+    padding:8px 16px;
+    border:3px solid currentColor;
+    border-radius:6px;
+    text-transform:uppercase;
+    opacity:0;
+    transform:rotate(-14deg) scale(1.6);
+    pointer-events:none;
+    background:rgba(241,237,225,0.85);
+  }
+  .stamp.show{
+    animation:stampDown 0.42s cubic-bezier(.2,.9,.3,1.2) forwards;
+  }
+  .stamp.correct{ color:var(--green); }
+  .stamp.wrong{ color:var(--red); }
+  @keyframes stampDown{
+    0%{ opacity:0; transform:rotate(-14deg) scale(2.2); }
+    60%{ opacity:1; transform:rotate(-9deg) scale(0.92); }
+    100%{ opacity:1; transform:rotate(-9deg) scale(1); }
+  }
+
+  .note{
+    margin-top:18px;
+    padding:12px 14px;
+    background:rgba(163,32,32,0.05);
+    border-left:3px solid var(--red);
+    border-radius:0 6px 6px 0;
+    font-family:'Kalam', cursive;
+    font-size:1rem;
+    color:#5a1717;
+    line-height:1.55;
+    display:none;
+  }
+  .note.show{ display:block; }
+  .note .tip{
+    display:block;
+    margin-top:8px;
+    color:var(--brass);
+    font-weight:700;
+  }
+
+  .next-row{
+    margin-top:18px;
+    display:none;
+  }
+  .next-row.show{ display:flex; justify-content:flex-end; }
+  .btn{
+    font-family:'Rajdhani', sans-serif;
+    font-weight:700;
+    font-size:0.95rem;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    border-radius:7px;
+    padding:11px 22px;
+    cursor:pointer;
+    transition:transform 0.1s, background 0.15s;
+  }
+  .btn:hover{ background:#233459; }
+  .btn:active{ transform:scale(0.97); }
+  .btn.brass{ background:var(--brass); color:#2a1e00; }
+
+  /* ===== Scoreboard / result card ===== */
+  .scorecard{
+    display:none;
+    text-align:center;
+    padding:6px 4px 4px;
+  }
+  .scorecard.show{ display:block; }
+  .scorecard .seal-big{
+    width:88px; height:88px;
+    border-radius:50%;
+    border:3px solid var(--brass);
+    margin:4px auto 14px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Rajdhani', sans-serif;
+    font-weight:700;
+    color:var(--brass);
+    font-size:0.75rem;
+    transform:rotate(-6deg);
+  }
+  .scorecard h2{
+    font-family:'Tiro Devanagari Hindi', serif;
+    font-weight:400;
+    color:var(--ink);
+    margin:0 0 4px;
+    font-size:1.35rem;
+  }
+  .scorecard .sub{
+    font-family:'Rajdhani', sans-serif;
+    color:var(--charcoal);
+    opacity:0.7;
+    font-size:0.85rem;
+    margin-bottom:18px;
+  }
+  .score-grid{
+    display:flex; gap:10px; margin-bottom:16px;
+  }
+  .score-box{
+    flex:1;
+    border:1.5px solid var(--charcoal);
+    border-radius:8px;
+    padding:12px 6px;
+  }
+  .score-box .n{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:1.3rem;
+  }
+  .score-box.g .n{ color:var(--green); }
+  .score-box.r .n{ color:var(--red); }
+  .score-box.b .n{ color:var(--brass); }
+  .score-box .l{
+    font-family:'Rajdhani', sans-serif;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    opacity:0.7;
+    margin-top:2px;
+  }
+  .remark{
+    font-family:'Kalam', cursive;
+    color:var(--red);
+    font-size:1.05rem;
+    margin-bottom:20px;
+  }
+
+  .footer-note{
+    text-align:center;
+    font-family:'Rajdhani', sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.03em;
+    color:var(--charcoal);
+    opacity:0.55;
+    margin-top:14px;
+  }
+
+  @media (max-width:380px){
+    .brand-title{ font-size:0.92rem; }
+    .brand-title .hi{ font-size:1.08rem; }
+    .qtext{ font-size:0.96rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .stamp, .opt{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="admit-card">
+    <div class="brand-row">
+      <div class="brand-title">
+        Exam Prep Quiz
+        <span class="hi">दरोगा तैयारी क्विज़</span>
+      </div>
+      <div class="seal">PASS<br>MARK</div>
+    </div>
+    <div class="stat-strip">
+      <div class="stat"><div class="num" id="statQ">01/30</div><div class="lbl">प्रश्न</div></div>
+      <div class="stat"><div class="num" id="statScore">0</div><div class="lbl">स्कोर</div></div>
+      <div class="stat"><div class="num" id="statAcc">—</div><div class="lbl">Accuracy</div></div>
+    </div>
+  </div>
+
+  <div class="paper" id="paper">
+
+    <div id="quizView">
+      <div class="watermark">YOUTUBE-DREAM DOSE</div>
+      <div class="badge-row">
+        <span class="tag" id="tagLabel">🔥 BRAIN BLAST!</span>
+        <span class="qcount" id="qcount">Q 01 / 30</span>
+      </div>
+      <div class="prompt-line" id="promptLine">सोच-समझकर उत्तर दीजिए… ⏱️</div>
+
+      <div class="qtext" id="qtext"></div>
+
+      <div class="options" id="options"></div>
+      <div class="stamp-wrap"><div class="stamp" id="stamp">सही</div></div>
+
+      <div class="note" id="note">
+        <span id="noteExplain"></span>
+        <span class="tip" id="noteTip"></span>
+      </div>
+
+      <div class="next-row" id="nextRow">
+        <button class="btn" id="nextBtn">आगे बढ़ें →</button>
+      </div>
+    </div>
+
+    <div class="scorecard" id="scoreboard">
+      <div class="seal-big">SCORE<br>CARD</div>
+      <h2 id="sbTitle">स्कोरबोर्ड</h2>
+      <div class="sub" id="sbSub"></div>
+      <div class="score-grid">
+        <div class="score-box g"><div class="n" id="sbCorrect">0</div><div class="l">Correct</div></div>
+        <div class="score-box r"><div class="n" id="sbWrong">0</div><div class="l">Incorrect</div></div>
+        <div class="score-box b"><div class="n" id="sbAcc">0%</div><div class="l">Accuracy</div></div>
+      </div>
+      <div class="remark" id="sbRemark"></div>
+      <button class="btn brass" id="sbContinue">जारी रखें →</button>
+    </div>
+
+    <div class="scorecard" id="finalCard">
+      <div class="seal-big">FINAL<br>RESULT</div>
+      <h2>परीक्षा परिणाम</h2>
+      <div class="sub">Bihar Police Prep — Routine 1</div>
+      <div class="score-grid">
+        <div class="score-box g"><div class="n" id="fCorrect">0</div><div class="l">Correct</div></div>
+        <div class="score-box r"><div class="n" id="fWrong">0</div><div class="l">Incorrect</div></div>
+        <div class="score-box b"><div class="n" id="fAcc">0%</div><div class="l">Accuracy</div></div>
+      </div>
+      <div class="remark" id="fRemark"></div>
+      <button class="btn" id="restartBtn">🔄 दोबारा शुरू करें</button>
+    </div>
+
+  </div>
+
+  <div class="footer-note">दरोगा / Bihar Police परीक्षा तैयारी • अभ्यास सेट Routine-1</div>
+</div>
+
+<script>
+const QUESTIONS = [
+{
+  q: "निम्नलिखित कथनों पर विचार कीजिए:\nI. बहादुर शाह प्रथम को शाह आलम प्रथम भी कहा जाता था।\nII. बहादुर शाह प्रथम ने राजपूतों के प्रति कठोर विरोधी नीति अपनाई।\nIII. वह औरंगजेब का पुत्र था।\n\nउपरोक्त में से कौन-सा/से कथन सही है/हैं?",
+  options:["केवल I और II","केवल I और III","केवल II और III","I, II और III"],
+  correct:1,
+  explain:"कथन I और III सही हैं — बहादुर शाह प्रथम को शाह आलम प्रथम भी कहा जाता था और वह औरंगजेब का पुत्र था। कथन II गलत है — उसने राजपूतों व सिखों के प्रति सुलहवादी नीति अपनाई थी, कठोर नहीं।",
+  tip:"💡 बहादुर शाह प्रथम को उसकी सुलहवादी नीति के कारण 'शाह-ए-बेखबर' भी कहा जाता है।"
+},
+{
+  q:"फर्रुखसियर पर कथन:\nI. फर्रुखसियर सैयद बंधुओं की सहायता से मुगल सम्राट बना।\nII. उसके शासनकाल में अंग्रेजी ईस्ट इंडिया कंपनी को महत्वपूर्ण व्यापारिक सुविधाएँ प्राप्त हुईं।\nIII. उसने सफलतापूर्वक सैयद बंधुओं के प्रभाव को समाप्त कर दिया।",
+  options:["केवल I और II","केवल II और III","केवल I और III","I, II और III"],
+  correct:0,
+  explain:"I और II सही हैं। III गलत है — फर्रुखसियर सैयद बंधुओं के प्रभाव को समाप्त नहीं कर सका; 1719 में सैयद बंधुओं ने ही उसकी हत्या करवा दी।",
+  tip:"💡 फर्रुखसियर के शासनकाल का 1717 का फरमान अंग्रेजों को शुल्क-मुक्त व्यापार की सुविधा देता है — यह बार-बार पूछा जाता है।"
+},
+{
+  q:"सैयद बंधुओं पर कथन:\nI. सैयद बंधुओं को 'किंग मेकर्स' कहा जाता था।\nII. औरंगजेब के बाद मुगल दरबार की राजनीति में उनकी महत्वपूर्ण भूमिका थी।\nIII. उन्होंने बंगाल में स्वतंत्र साम्राज्य स्थापित किया।",
+  options:["केवल I और II","केवल II और III","केवल I और III","I, II और III"],
+  correct:0,
+  explain:"I और II सही हैं। III गलत है — बंगाल में स्वतंत्र राज्य मुर्शिद कुली खान ने स्थापित किया था, सैयद बंधुओं ने नहीं।",
+  tip:"💡 सैयद बंधुओं (अब्दुल्ला खान व हुसैन अली खान) को 1720 में हराकर सत्ता से हटाया गया था।"
+},
+{
+  q:"मुहम्मद शाह पर कथन:\nI. मुहम्मद शाह को 'रंगीला' भी कहा जाता था।\nII. उसके शासनकाल में नादिर शाह ने भारत पर आक्रमण किया।\nIII. नादिर शाह मयूर सिंहासन को अपने साथ ले गया।",
+  options:["केवल I और II","केवल II और III","केवल I और III","I, II और III"],
+  correct:3,
+  explain:"तीनों कथन सही हैं — मुहम्मद शाह विलासी जीवन के कारण 'रंगीला' कहलाया, उसी के शासनकाल (1739) में नादिर शाह ने आक्रमण किया और मयूर सिंहासन लूटकर ले गया।",
+  tip:""
+},
+{
+  q:"मुगल साम्राज्य के पतन के संबंध में कथन:\nI. औरंगजेब के कमजोर उत्तराधिकारी साम्राज्य के पतन के कारण बने।\nII. नादिर शाह के आक्रमण ने मुगलों की प्रतिष्ठा को कमजोर किया।\nIII. औरंगजेब के बाद मुगल साम्राज्य आर्थिक रूप से अधिक मजबूत हो गया।",
+  options:["केवल I और II","केवल II और III","केवल I और III","I, II और III"],
+  correct:0,
+  explain:"I और II सही हैं। III गलत है — औरंगजेब के बाद मुगल साम्राज्य आर्थिक व राजनीतिक रूप से कमजोर होता गया, मजबूत नहीं।",
+  tip:""
+},
+{
+  q:"अहमद शाह अब्दाली पर कथन:\nI. अहमद शाह अब्दाली ने उत्तरकालीन मुगल काल में कई बार भारत पर आक्रमण किया।\nII. उसने तीसरे पानीपत के युद्ध में मराठों को पराजित किया।\nIII. तीसरा पानीपत का युद्ध 1757 में लड़ा गया था।",
+  options:["केवल I और II","केवल II और III","केवल I और III","I, II और III"],
+  correct:0,
+  explain:"I और II सही हैं। III गलत है — तीसरा पानीपत युद्ध 1757 में नहीं, बल्कि 1761 में लड़ा गया था।",
+  tip:"💡 पानीपत के तीन युद्ध याद रखें: पहला–1526, दूसरा–1556, तीसरा–1761।"
+},
+{
+  q:"बहादुर शाह ज़फर पर कथन:\nI. बहादुर शाह ज़फर अंतिम मुगल सम्राट था।\nII. 1857 के विद्रोह में उसकी प्रतीकात्मक भूमिका थी।\nIII. विद्रोह के बाद उसे रंगून निर्वासित कर दिया गया।",
+  options:["केवल I और II","केवल II और III","केवल I और III","I, II और III"],
+  correct:3,
+  explain:"तीनों कथन सही हैं — बहादुर शाह ज़फर अंतिम मुगल सम्राट थे, 1857 के विद्रोह में उन्हें प्रतीकात्मक नेता घोषित किया गया, और विद्रोह विफल होने पर अंग्रेजों ने उन्हें रंगून (म्यांमार) निर्वासित कर दिया।",
+  tip:""
+},
+{
+  q:"करनाल के युद्ध (1739) के संबंध में कथन:\n1. यह युद्ध फारस के आक्रमणकारी नादिर शाह और मुहम्मद शाह के नेतृत्व वाली मुगल सेना के बीच लड़ा गया था।\n2. इस युद्ध के बाद नादिर शाह ने दिल्ली को लूटा और वह अपने साथ प्रसिद्ध मयूर सिंहासन (तख्त-ए-ताऊस) और कोहिनूर हीरा ले गया।",
+  options:["केवल 1","केवल 2","1 और 2 दोनों","न तो 1 और न ही 2"],
+  correct:2,
+  explain:"दोनों कथन सही हैं — करनाल का युद्ध नादिर शाह व मुहम्मद शाह के बीच हुआ, जिसमें मुगल सेना पराजित हुई और नादिर शाह दिल्ली लूटकर मयूर सिंहासन व कोहिनूर हीरा ले गया।",
+  tip:""
+},
+{
+  q:"पानीपत के तीसरे युद्ध (1761) के संदर्भ में कथन:\n1. यह युद्ध मुगल सम्राट शाह आलम द्वितीय के शासनकाल के दौरान हुआ था।\n2. मराठा सेना को हराने के लिए मुगल सेना ने सीधे तौर पर अहमद शाह अब्दाली के साथ मिलकर युद्ध लड़ा था।",
+  options:["केवल 1","केवल 2","1 और 2 दोनों","न तो 1 और न ही 2"],
+  correct:0,
+  explain:"केवल कथन 1 सही है। कथन 2 गलत है — तीसरा पानीपत युद्ध मुख्यतः अहमद शाह अब्दाली व मराठों के बीच लड़ा गया था, मुगल सेना सीधे युद्ध में शामिल नहीं थी।",
+  tip:""
+},
+{
+  q:"उत्तर मुगलकालीन शासकों से जुड़ी ऐतिहासिक घटनाओं पर विचार कीजिए:\n1. ब्रिटिश ईस्ट इंडिया कंपनी को बंगाल, बिहार और उड़ीसा की दीवानी अधिकार प्राप्त होना।\n2. सिख नेता बंदा सिंह बहादुर को मृत्युदंड दिया जाना।\n3. मुगल सम्राट फर्रुखसियर की हत्या।\n\nउपर्युक्त घटनाओं का सबसे पुराना से सबसे नया (कालानुक्रमिक) सही क्रम क्या है?",
+  options:["2 – 3 – 1","3 – 2 – 1","2 – 1 – 3","1 – 2 – 3"],
+  correct:0,
+  explain:"सही क्रम है: बंदा सिंह बहादुर को मृत्युदंड (1716) → फर्रुखसियर की हत्या (1719) → दीवानी अधिकार प्राप्ति (1765)।",
+  tip:""
+},
+{
+  q:"भारत में लौह अयस्क के संबंध में कथन:\n1. हेमेटाइट में मैग्नेटाइट की अपेक्षा लौह की मात्रा अधिक होती है।\n2. ओडिशा भारत का सबसे बड़ा लौह अयस्क उत्पादक राज्य है।\n3. बैलाडीला लौह अयस्क खदानें छत्तीसगढ़ में स्थित हैं।",
+  options:["केवल 2 और 3","केवल 1 और 2","केवल 1 और 3","1, 2 और 3"],
+  correct:0,
+  explain:"2 और 3 सही हैं। कथन 1 गलत है — वास्तव में मैग्नेटाइट में हेमेटाइट की अपेक्षा लौह की मात्रा अधिक होती है, इसका उल्टा नहीं।",
+  tip:""
+},
+{
+  q:"कथनों पर विचार कीजिए:\n1. कोयला एक धात्विक खनिज है।\n2. भारत में गोंडवाना कोयले का पर्याप्त भंडार है।\n3. एन्थ्रासाइट कोयला मुख्यतः जम्मू एवं कश्मीर में पाया जाता है।",
+  options:["केवल 2","केवल 2 और 3","केवल 1 और 2","1, 2 और 3"],
+  correct:1,
+  explain:"2 और 3 सही हैं। कथन 1 गलत है — कोयला एक अधात्विक (जीवाश्म) खनिज है, धात्विक नहीं।",
+  tip:""
+},
+{
+  q:"मैंगनीज के संबंध में कथन:\n1. मैंगनीज इस्पात निर्माण में आवश्यक धातु है।\n2. ओडिशा मैंगनीज का प्रमुख उत्पादक राज्य है।\n3. मैंगनीज एक अधात्विक खनिज है।",
+  options:["केवल 1 और 2","केवल 2 और 3","केवल 1","1, 2 और 3"],
+  correct:0,
+  explain:"1 और 2 सही हैं। कथन 3 गलत है — मैंगनीज एक धात्विक खनिज है, अधात्विक नहीं।",
+  tip:""
+},
+{
+  q:"कथनों पर विचार कीजिए:\n1. भारत में सोने का प्रमुख उत्पादन कर्नाटक की हुट्टी खानों से होता है।\n2. कोलार गोल्ड फील्ड्स कर्नाटक में स्थित हैं।\n3. सिल्वेनाइट सोने का एक अयस्क है।",
+  options:["केवल 1 और 2","केवल 2 और 3","केवल 1 और 3","1, 2 और 3"],
+  correct:3,
+  explain:"तीनों कथन सही हैं — हुट्टी और कोलार गोल्ड फील्ड्स कर्नाटक के प्रमुख सोना उत्पादक क्षेत्र हैं, और सिल्वेनाइट सोने का एक प्रमुख अयस्क है।",
+  tip:""
+},
+{
+  q:"सूची-I (खनन क्षेत्र) का सूची-II (खनिज) से मिलान कीजिए:\nA. खेतड़ी   B. झरिया   C. बैलाडीला   D. पन्ना\n1. लौह अयस्क   2. ताँबा   3. कोयला   4. हीरा",
+  options:["A-2, B-3, C-1, D-4","A-3, B-1, C-2, D-4","A-1, B-2, C-3, D-4","A-2, B-4, C-1, D-3"],
+  correct:0,
+  explain:"खेतड़ी (राजस्थान) — ताँबा, झरिया (झारखंड) — कोयला, बैलाडीला (छत्तीसगढ़) — लौह अयस्क, पन्ना (मध्य प्रदेश) — हीरा।",
+  tip:"",
+  mono:true
+},
+{
+  q:"सूची-I (खनिज) का सूची-II (मुख्य उपयोग) से मिलान कीजिए:\nA. चूना पत्थर   B. बॉक्साइट   C. अभ्रक   D. जिप्सम\n1. एल्युमिनियम   2. सीमेंट   3. विद्युत उद्योग   4. उर्वरक/सीमेंट",
+  options:["A-2, B-1, C-3, D-4","A-3, B-2, C-1, D-4","A-2, B-4, C-3, D-1","A-1, B-2, C-4, D-3"],
+  correct:0,
+  explain:"चूना पत्थर — सीमेंट उद्योग, बॉक्साइट — एल्युमिनियम, अभ्रक — विद्युत उद्योग (इंसुलेटर), जिप्सम — उर्वरक व सीमेंट उद्योग।",
+  tip:"",
+  mono:true
+},
+{
+  q:"Consider the following statements about Cell Theory / कोशिका सिद्धांत के संबंध में कथन:\n1. All living organisms are composed of cells. / सभी जीवित जीव कोशिकाओं से बने होते हैं।\n2. Cell is the basic structural and functional unit of life. / कोशिका जीवन की मूल संरचनात्मक एवं क्रियात्मक इकाई है।\n3. Cells arise spontaneously from non-living matter. / कोशिकाएँ निर्जीव पदार्थ से स्वतः उत्पन्न होती हैं।",
+  options:["1 only / केवल 1","2 and 3 only / केवल 2 और 3","1 and 2 only / केवल 1 और 2","1, 2 and 3 / 1, 2 और 3"],
+  correct:2,
+  explain:"1 और 2 सही हैं। कथन 3 गलत है — कोशिका सिद्धांत के अनुसार सभी कोशिकाएँ पूर्व-विद्यमान कोशिकाओं से बनती हैं (Omnis cellula e cellula), स्वतः उत्पन्न नहीं होतीं।",
+  tip:""
+},
+{
+  q:"Consider the following statements about Prokaryotic Cells / प्रोकैरियोटिक कोशिकाओं के बारे में कथन:\n1. They do not have a true nucleus. / इनमें वास्तविक केंद्रक नहीं होता।\n2. Membrane-bound organelles are absent. / झिल्ली-युक्त कोशिकांग अनुपस्थित होते हैं।\n3. Ribosomes present are of 80S type. / इनमें 80S प्रकार के राइबोसोम पाए जाते हैं।",
+  options:["1 only / केवल 1","1 and 2 only / केवल 1 और 2","2 and 3 only / केवल 2 और 3","1, 2 and 3 / 1, 2 और 3"],
+  correct:1,
+  explain:"1 और 2 सही हैं। कथन 3 गलत है — प्रोकैरियोट्स में 70S प्रकार के राइबोसोम पाए जाते हैं, 80S यूकैरियोट्स में होते हैं।",
+  tip:""
+},
+{
+  q:"Regarding Mitochondria, consider the statements / माइटोकॉन्ड्रिया के संबंध में कथन:\n1. It is a double membrane-bound organelle. / यह दोहरी झिल्ली युक्त कोशिकांग है।\n2. It contains its own DNA. / इसमें अपना स्वयं का DNA होता है।\n3. It helps in photosynthesis. / यह प्रकाश संश्लेषण में सहायक होता है।",
+  options:["2 only / केवल 2","1 and 3 only / केवल 1 और 3","1 and 2 only / केवल 1 और 2","1, 2 and 3 / 1, 2 और 3"],
+  correct:2,
+  explain:"1 और 2 सही हैं। कथन 3 गलत है — प्रकाश संश्लेषण क्लोरोप्लास्ट में होता है; माइटोकॉन्ड्रिया श्वसन (respiration) का कार्य करता है।",
+  tip:""
+},
+{
+  q:"Consider the statements about Ribosomes / राइबोसोम से संबंधित कथन:\n1. They are non-membranous structures. / ये बिना झिल्ली वाले कण होते हैं।\n2. They are sites of protein synthesis. / ये प्रोटीन संश्लेषण के स्थल हैं।\n3. They are absent in prokaryotes. / ये प्रोकैरियोट्स में अनुपस्थित होते हैं।",
+  options:["2 only / केवल 2","1 and 2 only / केवल 1 और 2","2 and 3 only / केवल 2 और 3","1, 2 and 3 / 1, 2 और 3"],
+  correct:1,
+  explain:"1 और 2 सही हैं। कथन 3 गलत है — राइबोसोम प्रोकैरियोट्स में भी उपस्थित होते हैं (70S प्रकार के)।",
+  tip:""
+},
+{
+  q:"Consider the following statements about Endoplasmic Reticulum (ER) / एंडोप्लाज्मिक रेटिकुलम के बारे में कथन:\n1. Rough ER helps in protein synthesis. / रफ ER प्रोटीन संश्लेषण में सहायक होता है।\n2. Smooth ER helps in lipid synthesis. / स्मूथ ER वसा संश्लेषण में सहायक होता है।\n3. ER is found in prokaryotic cells. / ER प्रोकैरियोटिक कोशिकाओं में पाया जाता है।",
+  options:["1 and 3 only / केवल 1 और 3","2 only / केवल 2","1, 2 and 3 / 1, 2 और 3","1 and 2 only / केवल 1 और 2"],
+  correct:3,
+  explain:"1 और 2 सही हैं। कथन 3 गलत है — एंडोप्लाज्मिक रेटिकुलम केवल यूकैरियोटिक कोशिकाओं में पाया जाता है, प्रोकैरियोट्स में अनुपस्थित होता है।",
+  tip:""
+},
+{
+  q:"Statements related to Golgi Apparatus / गोल्जी तंत्र से संबंधित कथन:\n1. It modifies and packages proteins. / यह प्रोटीनों का संशोधन व पैकेजिंग करता है।\n2. It is involved in secretion. / यह स्राव में सहायक होता है।\n3. Known as \"traffic police\" of the cell. / इसे सेल की \"ट्रैफिक पुलिस\" के नाम से जाना जाता है।",
+  options:["2 and 3 only / केवल 2 और 3","1 only / केवल 1","1 and 2 only / केवल 1 और 2","1, 2 and 3 / 1, 2 और 3"],
+  correct:3,
+  explain:"तीनों कथन सही हैं — गोल्जी तंत्र प्रोटीन का संशोधन, पैकेजिंग व स्राव (secretion) में सहायक होता है, इसीलिए इसे कोशिका की 'ट्रैफिक पुलिस' कहा जाता है।",
+  tip:""
+},
+{
+  q:"Consider the statements about Lysosomes / लाइसोसोम के बारे में कथन:\n1. They contain hydrolytic enzymes. / इनमें पाचक एंजाइम होते हैं।\n2. They are called suicide bags of the cell. / इन्हें कोशिका की आत्मघाती थैली कहते हैं।\n3. They are absent in animal cells. / ये जंतु कोशिकाओं में अनुपस्थित होते हैं।",
+  options:["2 only / केवल 2","1 and 3 only / केवल 1 और 3","1, 2 and 3 / 1, 2 और 3","1 and 2 only / केवल 1 और 2"],
+  correct:3,
+  explain:"1 और 2 सही हैं। कथन 3 गलत है — लाइसोसोम मुख्यतः जंतु कोशिकाओं में पाए जाते हैं, अनुपस्थित नहीं होते।",
+  tip:""
+},
+{
+  q:"Regarding Chloroplast, consider the statements / हरितलवक के संबंध में कथन:\n1. It contains chlorophyll pigment. / इसमें क्लोरोफिल वर्णक होता है।\n2. It is double membrane-bound. / यह दोहरी झिल्ली युक्त होता है।\n3. Chlorophyll is a pigment that traps sunlight. / क्लोरोफिल एक ऐसा पिगमेंट है जो सूर्य की रोशनी को सोखता है।",
+  options:["2 and 3 only / केवल 2 और 3","1 and 2 only / केवल 1 और 2","1 only / केवल 1","1, 2 and 3 / 1, 2 और 3"],
+  correct:3,
+  explain:"तीनों कथन सही हैं — हरितलवक दोहरी झिल्ली युक्त कोशिकांग है, जिसमें क्लोरोफिल पिगमेंट होता है जो सूर्य के प्रकाश को अवशोषित करता है।",
+  tip:""
+},
+{
+  q:"Statements about Plasma Membrane / प्लाज्मा झिल्ली के बारे में कथन:\n1. It is selectively permeable. / यह चयनात्मक पारगम्य होती है।\n2. It is made of lipids and proteins. / यह वसा एवं प्रोटीन से बनी होती है।\n3. It allows all substances freely. / यह सभी पदार्थों को स्वतंत्र रूप से जाने देती है।",
+  options:["1 only / केवल 1","2 only / केवल 2","1 and 2 only / केवल 1 और 2","1, 2 and 3 / 1, 2 और 3"],
+  correct:2,
+  explain:"1 और 2 सही हैं। कथन 3 गलत है — प्लाज्मा झिल्ली चयनात्मक पारगम्य (selectively permeable) होती है, यह सभी पदार्थों को स्वतंत्र रूप से नहीं जाने देती।",
+  tip:""
+},
+{
+  q:"Consider statements about Nucleus / केंद्रक के बारे में कथन:\n1. It controls cell activities. / यह कोशिकीय क्रियाओं को नियंत्रित करता है।\n2. Nuclear membrane is double layered. / केंद्रीय झिल्ली दोहरी होती है।\n3. Mature mammalian RBCs lack nucleus. / परिपक्व स्तनधारी RBC में केंद्रक नहीं होता।",
+  options:["1 and 2 only / केवल 1 और 2","2 and 3 only / केवल 2 और 3","1 and 3 only / केवल 1 और 3","1, 2 and 3 / 1, 2 और 3"],
+  correct:3,
+  explain:"तीनों कथन सही हैं — केंद्रक कोशिकीय क्रियाओं का नियंत्रण करता है, इसकी झिल्ली दोहरी होती है, और परिपक्व स्तनधारी RBC में अपवाद स्वरूप केंद्रक नहीं होता।",
+  tip:""
+},
+{
+  q:"Regarding Vacuole, consider the statements / रिक्तिका के संबंध में कथन:\n1. Plant cells have large central vacuole. / पादप कोशिकाओं में बड़ी केंद्रीय रिक्तिका होती है।\n2. It maintains turgor pressure. / यह टर्गिडिटी बनाए रखती है।\n3. Vacuoles are responsible for storing nutrients and water. / वैक्यूल पोषक तत्वों एवं पानी को स्टोर करने के लिए ज़िम्मेदार होते हैं।",
+  options:["1 only / केवल 1","2 and 3 only / केवल 2 और 3","1 and 2 only / केवल 1 और 2","1, 2 and 3 / 1, 2 और 3"],
+  correct:3,
+  explain:"तीनों कथन सही हैं — पादप कोशिकाओं की बड़ी केंद्रीय रिक्तिका टर्गिडिटी बनाए रखने के साथ-साथ पोषक तत्वों व पानी के भंडारण में भी सहायक होती है।",
+  tip:""
+},
+{
+  q:"Consider statements about Cytoplasm / साइटोप्लाज्म से संबंधित कथन:\n1. It contains cell organelles. / इसमें कोशिकांग उपस्थित होते हैं।\n2. Metabolic reactions occur here. / अधिकांश चयापचयी क्रियाएँ यहीं होती हैं।\n3. It is absent in prokaryotes. / यह प्रोकैरियोट्स में अनुपस्थित होता है।",
+  options:["2 only / केवल 2","1 and 2 only / केवल 1 और 2","1 and 3 only / केवल 1 और 3","1, 2 and 3 / 1, 2 और 3"],
+  correct:3,
+  explain:"उत्तर कुंजी के अनुसार तीनों कथन सही माने गए हैं — साइटोप्लाज्म में कोशिकांग उपस्थित होते हैं और अधिकांश चयापचयी क्रियाएँ यहीं संपन्न होती हैं।",
+  tip:""
+},
+{
+  q:"सूची-I (लोक चित्रकला) का सूची-II (राज्य) से मिलान कीजिए:\nA. मधुबनी   B. वारली   C. पट्टचित्र   D. फड़\n1. महाराष्ट्र   2. बिहार   3. ओडिशा   4. राजस्थान",
+  options:["A-2, B-1, C-3, D-4","A-1, B-2, C-4, D-3","A-3, B-4, C-2, D-1","A-2, B-3, C-1, D-4"],
+  correct:0,
+  explain:"मधुबनी — बिहार, वारली — महाराष्ट्र, पट्टचित्र — ओडिशा, फड़ — राजस्थान। ये सभी प्रसिद्ध भारतीय लोक चित्रकलाएँ हैं।",
+  tip:"",
+  mono:true
+},
+{
+  q:"सूची-I (लोक चित्रकला) का सूची-II (राज्य) से मिलान कीजिए:\nA. कलमकारी   B. पिथौरा   C. चेरियाल   D. मंजूषा\n1. गुजरात   2. आंध्र प्रदेश   3. तेलंगाना   4. बिहार",
+  options:["A-2, B-1, C-3, D-4","A-3, B-2, C-1, D-4","A-2, B-4, C-3, D-1","A-1, B-2, C-4, D-3"],
+  correct:0,
+  explain:"कलमकारी — आंध्र प्रदेश, पिथौरा — गुजरात, चेरियाल — तेलंगाना, मंजूषा — बिहार (भागलपुर)। मंजूषा चित्रकला बिहार से जुड़ी है — Bihar Police परीक्षा के लिए ज़रूर याद रखें!",
+  tip:"",
+  mono:true
+}
+];
+
+const TAGS = ["🔥 BRAIN BLAST!","⚡ 10-SECOND CHALLENGE!","🧠 CAN YOU CRACK IT?","🎯 EXAM TRAP!","🚨 डॉन'ट फॉल फॉर द ट्रैप!","🏆 BOSS LEVEL!"];
+const PROMPTS = [
+  "सोच-समझकर उत्तर दीजिए… इसमें एक ट्रैप है! 👀",
+  "आपके 10 सेकंड शुरू होते हैं… अभी! ⏱️",
+  "सिर्फ तेज़ दिमाग वाले ही इसे क्रैक करेंगे! 🧠",
+  "जवाब लॉक करने से पहले ध्यान से पढ़ें! 🔒",
+  "जल्दबाज़ी न करें—हर विकल्प पढ़ें! 🎯"
+];
+
+let idx = 0, correctCount = 0, wrongCount = 0, answered = false;
+
+const els = {
+  statQ: document.getElementById('statQ'),
+  statScore: document.getElementById('statScore'),
+  statAcc: document.getElementById('statAcc'),
+  tagLabel: document.getElementById('tagLabel'),
+  qcount: document.getElementById('qcount'),
+  promptLine: document.getElementById('promptLine'),
+  qtext: document.getElementById('qtext'),
+  options: document.getElementById('options'),
+  stamp: document.getElementById('stamp'),
+  note: document.getElementById('note'),
+  noteExplain: document.getElementById('noteExplain'),
+  noteTip: document.getElementById('noteTip'),
+  nextRow: document.getElementById('nextRow'),
+  nextBtn: document.getElementById('nextBtn'),
+  quizView: document.getElementById('quizView'),
+  scoreboard: document.getElementById('scoreboard'),
+  finalCard: document.getElementById('finalCard'),
+};
+
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function renderQuestion(){
+  const q = QUESTIONS[idx];
+  answered = false;
+  els.tagLabel.textContent = pick(TAGS);
+  els.promptLine.textContent = pick(PROMPTS);
+  els.qcount.textContent = `Q ${String(idx+1).padStart(2,'0')} / ${QUESTIONS.length}`;
+  els.qtext.textContent = q.q;
+  els.qtext.className = "qtext" + (q.mono ? " mono-table" : "");
+  els.statQ.textContent = `${String(idx+1).padStart(2,'0')}/${QUESTIONS.length}`;
+
+  els.options.innerHTML = "";
+  const letters = ["A","B","C","D"];
+  q.options.forEach((opt, i)=>{
+    const div = document.createElement('div');
+    div.className = "opt";
+    div.innerHTML = `<span class="bubble">${letters[i]}</span><span>${opt}</span>`;
+    div.addEventListener('click', ()=> selectAnswer(i));
+    els.options.appendChild(div);
+  });
+
+  els.stamp.className = "stamp";
+  els.note.className = "note";
+  els.nextRow.className = "next-row";
+}
+
+function selectAnswer(i){
+  if(answered) return;
+  answered = true;
+  const q = QUESTIONS[idx];
+  const optDivs = els.options.querySelectorAll('.opt');
+  const isCorrect = (i === q.correct);
+
+  optDivs.forEach((d, di)=>{
+    d.classList.add('disabled');
+    if(di === q.correct) d.classList.add('correct');
+    if(di === i && !isCorrect) d.classList.add('wrong');
+    if(di !== i && di !== q.correct) d.classList.add('dim');
+  });
+
+  els.stamp.textContent = isCorrect ? "सही ✓" : "गलत ✗";
+  els.stamp.className = "stamp show " + (isCorrect ? "correct" : "wrong");
+
+  els.noteExplain.textContent = (isCorrect ? "🎉 सही जवाब! " : "❌ थोड़ा चूक गए। ") + q.explain;
+  els.noteTip.textContent = q.tip || "";
+  els.note.className = "note show";
+  els.nextRow.className = "next-row show";
+
+  if(isCorrect) correctCount++; else wrongCount++;
+  updateHeaderStats();
+}
+
+function updateHeaderStats(){
+  els.statScore.textContent = correctCount;
+  const attempted = correctCount + wrongCount;
+  els.statAcc.textContent = attempted ? Math.round((correctCount/attempted)*100)+"%" : "—";
+}
+
+function goNext(){
+  idx++;
+  if(idx >= QUESTIONS.length){
+    showFinal();
+    return;
+  }
+  if(idx>0 && idx % 5 === 0){
+    showScoreboard();
+    return;
+  }
+  renderQuestion();
+}
+
+function remarkFor(acc){
+  if(acc >= 80) return "🔥 आप आग लगा रहे हैं! शानदार प्रदर्शन!";
+  if(acc >= 60) return "💪 बढ़िया चल रहा है — बस थोड़ी और मेहनत!";
+  if(acc >= 40) return "⚡ ट्रैप्स आपको पकड़ रहे हैं — वापसी करें!";
+  return "📖 चिंता न करें, दोहराव से ही महारत आती है — फिर से पढ़ें और आगे बढ़ें!";
+}
+
+function showScoreboard(){
+  els.quizView.style.display = "none";
+  const sb = document.getElementById('scoreboard');
+  sb.className = "scorecard show";
+  document.getElementById('sbSub').textContent = `प्रश्न ${idx} तक का प्रदर्शन`;
+  document.getElementById('sbCorrect').textContent = correctCount;
+  document.getElementById('sbWrong').textContent = wrongCount;
+  const acc = Math.round((correctCount/(correctCount+wrongCount))*100);
+  document.getElementById('sbAcc').textContent = acc+"%";
+  document.getElementById('sbRemark').textContent = remarkFor(acc);
+}
+
+document.getElementById('sbContinue').addEventListener('click', ()=>{
+  document.getElementById('scoreboard').className = "scorecard";
+  els.quizView.style.display = "block";
+  renderQuestion();
+});
+
+function showFinal(){
+  els.quizView.style.display = "none";
+  document.getElementById('scoreboard').className = "scorecard";
+  const fc = document.getElementById('finalCard');
+  fc.className = "scorecard show";
+  document.getElementById('fCorrect').textContent = correctCount;
+  document.getElementById('fWrong').textContent = wrongCount;
+  const acc = Math.round((correctCount/(correctCount+wrongCount))*100);
+  document.getElementById('fAcc').textContent = acc+"%";
+  document.getElementById('fRemark').textContent = remarkFor(acc);
+}
+
+document.getElementById('restartBtn').addEventListener('click', ()=>{
+  idx = 0; correctCount = 0; wrongCount = 0;
+  document.getElementById('finalCard').className = "scorecard";
+  els.quizView.style.display = "block";
+  updateHeaderStats();
+  renderQuestion();
+});
+
+els.nextBtn.addEventListener('click', goNext);
+
+renderQuestion();
+updateHeaderStats();
+</script>
+</body>
+</html>
